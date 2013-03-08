@@ -18,5 +18,9 @@ module SimpleNavbar
       load filename if File.exists?(filename)
     end
 
+    generators do
+      require File.expand_path("../../generators/simple_navbar_config_generator", __FILE__)
+    end
+
   end
 end
