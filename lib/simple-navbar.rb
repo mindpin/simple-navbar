@@ -1,4 +1,5 @@
-require 'simple_navbar/base'
+require 'simple_navbar/config'
+require 'simple_navbar/render'
 require 'simple_navbar/controller_item'
 require 'simple_navbar/current_context'
 require 'simple_navbar/group'
@@ -6,6 +7,13 @@ require 'simple_navbar/helpers'
 require 'simple_navbar/nav'
 require 'simple_navbar/rule'
 require 'simple_navbar/error'
+
+module SimpleNavbar
+  class Base
+    extend SimpleNavbar::Config
+    extend SimpleNavbar::Render
+  end
+end
 
 if defined?(Rails)
 
