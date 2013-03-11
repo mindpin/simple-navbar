@@ -43,6 +43,7 @@ module SimpleNavbar
         klass = subnav.is_current?(view) ? "subitem current" : "subitem"
         nav_html << "<div class='#{klass} #{subnav.title}'>"
         nav_html << "<a href='#{subnav.options[:url]}' class='lv2'>#{subnav.options[:name]}</a>"
+        nav_html << render_subnavs(view, subnav)
         nav_html << "</div>"
       end
       nav_html << "</div>"

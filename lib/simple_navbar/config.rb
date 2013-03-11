@@ -44,7 +44,7 @@ module SimpleNavbar
     def controller(controller_name, options = {})
       item = SimpleNavbar::ControllerItem.new(controller_name, options)
       context = SimpleNavbar::CurrentContext.instance
-      nav = context.subnav || context.nav
+      nav = context.nav
       nav.controller_items << item
     end
   end
