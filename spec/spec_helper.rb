@@ -4,7 +4,6 @@ require 'action_view'
 require 'haml'
 require 'simple-navbar'
 require 'nokogiri'
-#require 'mocks/view'
 
 ActionView::Base.send(:include, SimpleNavbar::Helpers)
 view = ActionView::Base.new
