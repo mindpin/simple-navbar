@@ -2,7 +2,7 @@ require 'singleton'
 
 module SimpleNavbar
   class CurrentContext
-    attr_accessor :rules, :group, :nav
+    attr_accessor :rules, :nav
     include Singleton
   end
 end

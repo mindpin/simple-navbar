@@ -22,12 +22,7 @@ describe "读取配置相关" do
     rule = SimpleNavbar::Rule.get(:simple)
     rule.title.should == :simple
 
-    groups = rule.groups
-    groups.length.should == 1
-
-    group = groups[0]
-    group.title.should == :default
-    navs = group.navs
+    navs = rule.navs
     navs.length.should == 4
 
     index_nav = navs[0]
@@ -51,12 +46,7 @@ describe "读取配置相关" do
     rule = SimpleNavbar::Rule.get(:multi_level_example)
     rule.title.should == :multi_level_example
     
-    groups = rule.groups
-    groups.length.should == 1
-
-    group = groups[0]
-    group.title.should == :default
-    navs = group.navs
+    navs = rule.navs
     navs.length.should == 3
 
     musics_nav = navs[2]
@@ -98,18 +88,13 @@ describe "读取配置相关" do
     rule_2 = SimpleNavbar::Rule.get(:rule_1)
     rule_2.title.should == :rule_1
 
-    rule_1.groups.length.should == 1
-    rule_1.groups.length.should == rule_2.groups.length
-    rule_1.groups[0].navs.length == 4
-    rule_1.groups[0].navs.length == rule_2.groups[0].navs.length
+    rule_1.navs.length == 4
+    rule_1.navs.length == rule_2.navs.length
   end
 
   it 'admin' do
     rule_admin = SimpleNavbar::Rule.get(:admin)
-    rule_admin.title.should == :admin
-    rule_admin.groups.length.should == 2
-    rule_admin.groups[0].navs.length == 1
-    nav = rule_admin.groups[0].navs[0]
+    nav = rule_admin.navs[0]
 
     nav.title.should == :index
     nav.controller_items.length == 1
@@ -120,17 +105,11 @@ describe "读取配置相关" do
     view = View.new
 
     html_str = view.simple_navbar(:simple)
-
+    p html_str
     navbar = Nokogiri::XML(html_str).css('.page-navbar')
     navbar.should_not == nil
 
-    group = navbar.at_css('.group')
-    group.should_not == nil
-
-    title = group.at_css('.title')
-    title.should_not == nil
-
-    items = group.at_css('.items')
+    items = navbar.at_css('.items')
     items.should_not == nil
 
     item_index = items.at_css('.item.index')

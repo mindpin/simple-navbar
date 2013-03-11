@@ -2,27 +2,13 @@ module SimpleNavbar
   module Render
     def render_sidebar(view, rule_sym)
       html = "<div class='page-navbar'>"
-
-      SimpleNavbar::Rule.get(rule_sym).groups.each do |group|
-        html << render_group(view, group)
-      end
-      
-      html << "</div>"
-      view.raw(html)
-    end
-
-    def render_group(view, group)
-      html = "<div class='group'>"
-      html << "<div class='title'>#{group.options[:name]}</div>"
       html << "<div class='items'>"
-
-      group.navs.each do |nav|
+      SimpleNavbar::Rule.get(rule_sym).navs.each do |nav|
         html << render_nav(view,nav)
       end
-
       html << "</div>"
       html << "</div>"
-      html
+      view.raw(html)
     end
 
     def render_nav(view, nav)

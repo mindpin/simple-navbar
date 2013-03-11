@@ -1,9 +1,9 @@
 module SimpleNavbar
   class Rule
-    attr_accessor :title, :groups
+    attr_accessor :title, :navs
     def initialize(title)
       self.title = title
-      self.groups = []
+      self.navs = []
     end
 
     def self.get(title)

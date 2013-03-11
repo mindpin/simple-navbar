@@ -13,18 +13,6 @@ module SimpleNavbar
       SimpleNavbar::CurrentContext.instance.rules = nil
     end
 
-    def group(title, options, &block)
-      group = SimpleNavbar::Group.new(title, options)
-      SimpleNavbar::CurrentContext.instance.group = group
-
-      self.instance_eval(&block)
-      SimpleNavbar::CurrentContext.instance.rules.each do |rule|
-        rule.groups << group
-      end
-
-      SimpleNavbar::CurrentContext.instance.group = nil
-    end
-
     def nav(title, options, &block)
       new_nav = SimpleNavbar::Nav.new(title, options)
       parent_nav = SimpleNavbar::CurrentContext.instance.nav
@@ -36,7 +24,9 @@ module SimpleNavbar
       SimpleNavbar::CurrentContext.instance.nav = parent_nav
 
       if parent_nav.blank?
-        SimpleNavbar::CurrentContext.instance.group.navs << new_nav
+        SimpleNavbar::CurrentContext.instance.rules.each do |rule|
+          rule.navs << new_nav
+        end
       end
 
     end
