@@ -5,22 +5,27 @@ require 'simple_navbar/group'
 require 'simple_navbar/helpers'
 require 'simple_navbar/nav'
 require 'simple_navbar/rule'
+require 'simple_navbar/error'
 
-module SimpleNavbar
-  class Railtie < Rails::Railtie
+if defined?(Rails)
 
-    initializer 'SimpleNavbar.helper' do |app|
-      ActionView::Base.send :include, SimpleNavbar::Helpers
+  module SimpleNavbar
+    class Railtie < Rails::Railtie
+
+      initializer 'SimpleNavbar.helper' do |app|
+        ActionView::Base.send :include, SimpleNavbar::Helpers
+      end
+
+      config.to_prepare do
+        filename = File.join(Rails.root.to_s, 'config/simple_navbar_config.rb')
+        load filename if File.exists?(filename)
+      end
+
+      generators do
+        require File.expand_path("../../generators/simple_navbar_config_generator", __FILE__)
+      end
+
     end
-
-    config.to_prepare do
-      filename = File.join(Rails.root.to_s, 'config/simple_navbar_config.rb')
-      load filename if File.exists?(filename)
-    end
-
-    generators do
-      require File.expand_path("../../generators/simple_navbar_config_generator", __FILE__)
-    end
-
   end
+
 end

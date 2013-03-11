@@ -7,6 +7,13 @@ module SimpleNavbar
     end
 
     def self.get(title)
+      raise SimpleNavbar::UnconfigurationError.new if !defined?(@@rules)
+      rule = @@rules[title]
+      raise SimpleNavbar::UndefinedRuleError.new if rule.blank?
+      rule
+    end
+
+    def self.get_or_create(title)
       @@rules[title] ||= self.new(title)
     end
 

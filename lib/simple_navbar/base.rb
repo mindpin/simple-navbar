@@ -59,7 +59,7 @@ module SimpleNavbar
     end
 
     def self.rule(rule_syms, &block)
-      rules = [rule_syms].flatten.map{|rule_sym| SimpleNavbar::Rule.get(rule_sym)}
+      rules = [rule_syms].flatten.map{|rule_sym| SimpleNavbar::Rule.get_or_create(rule_sym)}
 
       SimpleNavbar::CurrentContext.instance.rules = rules
       self.instance_eval(&block)
