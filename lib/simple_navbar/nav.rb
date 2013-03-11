@@ -14,19 +14,5 @@ module SimpleNavbar
       parent.subnavs << self
     end
 
-    def is_current?(view)
-      controller = view.params["controller"].to_sym
-      action = view.params["action"].to_sym
-
-      self.controller_items.each do |item|
-        return true if item.is_current?(controller, action)
-      end
-
-      self.subnavs.each do |nav|
-        return true if nav.is_current?(view)
-      end
-      
-      return false
-    end
   end
 end

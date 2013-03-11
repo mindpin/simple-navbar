@@ -2,8 +2,8 @@ require 'spec_helper'
 
 
 describe "读取配置相关" do
-  it '错误提示' do
-    view = View.new
+  it '配置文件解析错误提示' do
+    view = MOCK_VIEW
 
     expect { 
       view.simple_navbar(:admin)
@@ -101,28 +101,33 @@ describe "读取配置相关" do
     nav.controller_items[0].controller_name.should == :'admin/index'
   end
 
-  it 'simple 输出 html' do
-    view = View.new
+  describe '#simple_navbar' do
+    before(:all) {
+      html_str = MOCK_VIEW.simple_navbar(:simple)
+      puts html_str
 
-    html_str = view.simple_navbar(:simple)
-    p html_str
-    navbar = Nokogiri::XML(html_str).css('.page-navbar')
-    navbar.should_not == nil
+      @xml = Nokogiri::XML(html_str)
+    }
 
-    items = navbar.at_css('.items')
-    items.should_not == nil
+    it {
+      @xml.at_css('.page-navbar > .navbar-inner > ul.nav > li.active > a').
+        content.should == '首页'
+    }
 
-    item_index = items.at_css('.item.index')
-    item_index.should_not == nil
+    it {
+      @xml.css('.page-navbar > .navbar-inner > ul.nav > li > a')[1].
+        content.should == '书籍'
+    }
 
-    item_books = items.at_css('.item.books')
-    item_books.should_not == nil
+    it {
+      @xml.css('.page-navbar > .navbar-inner > ul.nav > li > a')[2].
+        content.should == '电影'
+    }
 
-    item_movies = items.at_css('.item.movies')
-    item_movies.should_not == nil
-    
-    item_musics = items.at_css('.item.musics')
-    item_musics.should_not == nil
-    
+    it {
+      @xml.css('.page-navbar > .navbar-inner > ul.nav > li > a')[3].
+        content.should == '音乐'
+    }
+
   end
 end

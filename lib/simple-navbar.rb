@@ -1,11 +1,12 @@
+require 'simple-page-compoents'
 require 'simple_navbar/config'
-require 'simple_navbar/render'
 require 'simple_navbar/controller_item'
 require 'simple_navbar/current_context'
 require 'simple_navbar/helpers'
 require 'simple_navbar/nav'
 require 'simple_navbar/rule'
 require 'simple_navbar/error'
+require 'simple_navbar/render/nav_item'
 
 module SimpleNavbar
   class Base

@@ -1,4 +1,4 @@
-class View
+class View < ActionView::Base
   include SimpleNavbar::Helpers
 
   def params
