@@ -79,23 +79,19 @@ module SimpleNavbar
     end
 
     def self.nav(title, options, &block)
-      nav = SimpleNavbar::Nav.new(title, options)
-      SimpleNavbar::CurrentContext.instance.nav = nav
+      new_nav = SimpleNavbar::Nav.new(title, options)
+      parent_nav = SimpleNavbar::CurrentContext.instance.nav
+      new_nav.set_parent(parent_nav)
+      SimpleNavbar::CurrentContext.instance.nav = new_nav
 
       self.instance_eval(&block)
-      SimpleNavbar::CurrentContext.instance.group.navs << nav
 
-      SimpleNavbar::CurrentContext.instance.nav = nil
-    end
+      SimpleNavbar::CurrentContext.instance.nav = parent_nav
 
-    def self.subnav(title, options, &block)
-      nav = SimpleNavbar::Nav.new(title, options)
-      SimpleNavbar::CurrentContext.instance.subnav = nav
+      if parent_nav.blank?
+        SimpleNavbar::CurrentContext.instance.group.navs << new_nav
+      end
 
-      self.instance_eval(&block)
-      SimpleNavbar::CurrentContext.instance.nav.subnavs << nav
-
-      SimpleNavbar::CurrentContext.instance.subnav = nil
     end
 
     def self.controller(controller_name, options = {})
