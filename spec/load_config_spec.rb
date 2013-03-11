@@ -27,34 +27,34 @@ describe "读取配置相关" do
     navbar = Nokogiri::XML(html_str).css('.page-navbar')
     navbar.should_not == nil
 
-    group = navbar.css('.group')
+    group = navbar.at_css('.group')
     group.should_not == nil
 
-    title = group.css('.title')
+    title = group.at_css('.title')
     title.should_not == nil
 
-    items = group.css('.items')
+    items = group.at_css('.items')
     items.should_not == nil
 
-    item_dash = items.css('.item.dashboard')
+    item_dash = items.at_css('.item.dashboard')
     item_dash.should_not == nil
 
-    item_homeworks = items.css('.item.homeworks')
+    item_homeworks = items.at_css('.item.homeworks')
     item_homeworks.should_not == nil
 
-    item_media_resources = items.css('.item.media_resources')
+    item_media_resources = items.at_css('.item.media_resources')
     item_media_resources.should_not == nil
 
-    subitems = item_media_resources.css('subitems')
+    subitems = item_media_resources.at_css('.subitems')
     subitems.should_not == nil
 
-    subitem_my_resources = subitems.css('.subitem.my_resources')
+    subitem_my_resources = subitems.at_css('.subitem.my_resources')
     subitem_my_resources.should_not == nil
 
-    subitem_media_shares = subitems.css('.subitem.media_shares')
+    subitem_media_shares = subitems.at_css('.subitem.media_shares')
     subitem_media_shares.should_not == nil
 
-    subitem_public_resources = subitems.css('.subitem.public_resources')
+    subitem_public_resources = subitems.at_css('.subitem.public_resources')
     subitem_public_resources.should_not == nil
      
   end
