@@ -28,7 +28,7 @@ module SimpleNavbar
     def _convert(nav)
       name = nav.options[:name]
       url  = nav.options[:url]
-      nav_item = SimpleNavbar::Render::NavItem.new(name, url)
+      nav_item = SimpleNavbar::Render::NavItem.new(name, url, :class => nav.title)
       nav_item.controller_items = nav.controller_items
       nav_item
     end
