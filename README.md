@@ -3,6 +3,9 @@ simple-navbar
 
 a simple navbar plugin
 
+[![Build Status](https://travis-ci.org/mindpin/simple-navbar.png?branch=master)](https://travis-ci.org/mindpin/simple-navbar)
+[![Coverage Status](https://coveralls.io/repos/mindpin/simple-navbar/badge.png?branch=master)](https://coveralls.io/r/mindpin/simple-navbar)
+
 ## Install
 include in Gemfile:
 
