@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 module SimpleNavbar
   module Helpers
-    def simple_navbar(rule)
-      navbar = SimplePageCompoents::NavbarRender.new(self)
+    def simple_navbar(rule, *args)
+      navbar = SimplePageCompoents::NavbarRender.new(self, *args)
 
       rule = SimpleNavbar::Rule.get(rule.to_sym)
       rule.navs.each do |nav|
