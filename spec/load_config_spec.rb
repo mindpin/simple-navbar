@@ -207,7 +207,7 @@ describe "读取配置相关" do
 
   describe '#simple_navbar' do
     before(:all) {
-      html_str = MOCK_VIEW.simple_navbar(:simple)
+      html_str = MOCK_VIEW.simple_navbar(:multi_level_example)
       @xml = Nokogiri::XML(html_str)
     }
 
@@ -218,17 +218,27 @@ describe "读取配置相关" do
 
     it {
       @xml.css('.page-navbar > .navbar-inner > ul.nav > li > a')[1].
-        content.should == '书籍'
-    }
-
-    it {
-      @xml.css('.page-navbar > .navbar-inner > ul.nav > li > a')[2].
         content.should == '电影'
     }
 
     it {
-      @xml.css('.page-navbar > .navbar-inner > ul.nav > li > a')[3].
+      @xml.css('.page-navbar > .navbar-inner > ul.nav > li > a')[2].
         content.should == '音乐'
+    }
+
+    it {
+      @xml.css('.page-navbar > .navbar-inner > ul.nav > li > ul.nav > li > a')[0].
+        content.should == '流行音乐'
+    }
+
+    it {
+      @xml.css('.page-navbar > .navbar-inner > ul.nav > li > ul.nav > li > ul.nav > li > a')[0].
+        content.should == '摇滚音乐'
+    }
+
+    it {
+      @xml.css('.page-navbar > .navbar-inner > ul.nav > li > ul.nav > li > ul.nav > li > ul.nav > li > a')[0].
+        content.should == '朋克'
     }
 
   end

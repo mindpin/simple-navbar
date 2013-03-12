@@ -17,10 +17,11 @@ module SimpleNavbar
     private
 
     def _xxx_r(navbar_or_item, nav)
-      navbar_or_item.add_item_obj _convert(nav) do |item|
-        nav.subnavs.each do |subnav|
-          _xxx_r(item, subnav)
-        end
+      item = _convert(nav)
+      navbar_or_item.add_item_obj item
+
+      nav.subnavs.each do |subnav|
+        _xxx_r(item, subnav)
       end
     end
     
