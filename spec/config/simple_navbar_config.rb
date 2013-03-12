@@ -1,16 +1,21 @@
 # -*- encoding : utf-8 -*-
 SimpleNavbar::Base.config do
-  # example
-  # 
-  # controller :media_resources, :except => [:xxx]
-  # controller :file_entities, :only => [:upload]
-  # end
   rule :simple do
     nav :index, :name => '首页', :url => '/' do
+      # 当 controler 是 index_controller, action 是 index
+      # 当前 nav 被选中
       controller :index, :only => :index
+
+      # only 参数支持数组形式
+      # controller :index, :only => [:index]
+      # 同时还支持 except 参数
+      # controller :index, :except => [:index]
+      # controller :index, :except => :index
     end
 
     nav :books, :name => '书籍', :url => '/books' do
+      # 当 controler 是 books_controller
+      # 当前 nav 被选中
       controller :books
     end
 
@@ -33,6 +38,7 @@ SimpleNavbar::Base.config do
     end
 
     nav :musics, :name => '音乐', :url => '/musics' do
+      # 一个 nav 下支持配置多个 controller
       controller :musics
       controller :pop_musics
       controller :rock_musics
@@ -42,7 +48,7 @@ SimpleNavbar::Base.config do
         controller :pop_musics
         controller :rock_musics
         controller :punk_musics 
-
+        # nav 支持任意层级的嵌套
         nav :rock_musics, :name => '摇滚音乐', :url => '/musics/pop/rock' do
           controller :rock_musics
           controller :punk_musics 
@@ -56,6 +62,7 @@ SimpleNavbar::Base.config do
     end
   end
 
+  # 可以同时配置多个 rule
   rule [:rule_1, :rule_2] do
     nav :index, :name => '首页', :url => '/' do
       controller :index, :only => :index
@@ -76,8 +83,10 @@ SimpleNavbar::Base.config do
 
   rule :admin do
     nav :index, :name => '首页', :url => '/admin' do
+      # 支持带 namespace 的 controller
       controller :'admin/index'
     end
   end
 
 end
+

@@ -12,7 +12,6 @@ require 'simple_navbar/render/nav_item'
 module SimpleNavbar
   class Base
     extend SimpleNavbar::Config
-    extend SimpleNavbar::Render
   end
 end
 
