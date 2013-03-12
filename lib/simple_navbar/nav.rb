@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module SimpleNavbar
   class Nav
     attr_accessor :title, :options, :controller_items, :subnavs, :parent

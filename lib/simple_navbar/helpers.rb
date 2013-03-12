@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module SimpleNavbar
   module Helpers
     def simple_navbar(rule)

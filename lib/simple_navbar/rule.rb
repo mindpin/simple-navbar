@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module SimpleNavbar
   class Rule
     attr_accessor :title, :navs

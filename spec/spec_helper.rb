@@ -1,3 +1,6 @@
+# -*- encoding : utf-8 -*-
+require 'coveralls'
+Coveralls.wear!
 require 'rails'
 require 'active_support/core_ext'
 require 'action_view'

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'simple-page-compoents'
 require 'simple_navbar/config'
 require 'simple_navbar/controller_item'

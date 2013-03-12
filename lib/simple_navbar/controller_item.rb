@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module SimpleNavbar
   class ControllerItem
     attr_accessor :controller_name, :options
