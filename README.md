@@ -127,3 +127,42 @@ in view
  = simple_navbar(:admin)
 ```
 
+
+## i18n support
+
+### 没有使用 i18n 
+在没有使用 i18n 时的配置如下
+```
+rule :admin do
+  nav :courses, :name => '课程管理', :url => '/admin/courses' do
+    controller :'admin/courses'
+    nav :import, :name => ‘课程导入’, :url => '/admin/courses/import' do
+      controller 'admin/courses', :only => [:import]
+    end
+  end
+end
+```
+
+### 使用 i18n 
+如果希望 nav 配置的 name 用 i18n 来处理，配置文件需要把 name 去掉
+```
+rule :admin do
+  nav :courses, :url => '/admin/courses' do
+    controller :'admin/courses'
+    nav :import, :url => '/admin/courses/import' do
+      controller 'admin/courses', :only => [:import]
+    end
+  end
+end
+```
+
+然后需要在 i18n 配置中增加如下配置
+```
+simple-navbar:
+  admin:
+    courses: 课程管理
+    import: 课程导入
+```
+
+需要注意的是，I18n文件针对嵌套的nav，并不分层。
+全部都写在一层上。也就是说，实际编写配置时，同一个 rule 下,建议开发者在每个nav上用不一样的标识。
