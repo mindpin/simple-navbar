@@ -26,7 +26,7 @@ module SimpleNavbar
 
       if parent_nav.blank?
         SimpleNavbar::CurrentContext.instance.rules.each do |rule|
-          rule.navs << new_nav
+          new_nav.set_rule(rule)
         end
       end
 

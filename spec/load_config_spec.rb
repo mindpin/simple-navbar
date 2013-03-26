@@ -45,11 +45,11 @@ describe "读取配置相关" do
       }
 
       it{
-        @rule.navs[0].options[:url].should == '/'
+        @rule.navs[0].options.url.should == '/'
       }
 
       it{
-        @rule.navs[0].options[:name].should == '首页'
+        @rule.navs[0].options.name.should == '首页'
       }
 
       it{

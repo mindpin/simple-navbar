@@ -29,7 +29,7 @@ SimpleNavbar::Base.config do
   end
 
   rule :multi_level_example do
-    nav :index, :name => '首页', :url => '/' do
+    nav :index, :url => '/' do
       controller :index, :only => :index
     end
 
@@ -44,7 +44,7 @@ SimpleNavbar::Base.config do
       controller :rock_musics
       controller :punk_musics 
 
-      nav :pop_musics, :name => '流行音乐', :url => '/musics/pop' do
+      nav :pop_musics, :url => '/musics/pop' do
         controller :pop_musics
         controller :rock_musics
         controller :punk_musics 
