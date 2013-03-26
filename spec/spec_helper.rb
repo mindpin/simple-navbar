@@ -23,3 +23,7 @@ def view.params
 end
 MOCK_VIEW = view
 
+# i18n
+I18n.locale = "zh-CN"
+
+I18n.load_path += [File.expand_path('../locales/zh-CN.yml',__FILE__)]
