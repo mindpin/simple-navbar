@@ -4,12 +4,18 @@ require 'spec_helper'
 
 describe "读取配置相关" do
   describe "#simple_navbar error" do
-    before(:all){
+    before(:each){
       @view = MOCK_VIEW
+      def @view.params
+        {
+          "controller" => "index",
+          "action"     => "index"
+        }
+      end
     }
 
     it {
-      expect { 
+      expect {
         @view.simple_navbar(:admin)
       }.to raise_error(SimpleNavbar::UnconfigurationError)
     }
@@ -84,7 +90,7 @@ describe "读取配置相关" do
       }
 
       it{
-        @rule.title.should == :multi_level_example  
+        @rule.title.should == :multi_level_example
       }
 
       it{
@@ -92,23 +98,11 @@ describe "读取配置相关" do
       }
 
       it{
-        @rule.navs[2].controller_items.length.should == 4
+        @rule.navs[2].controller_items.length.should == 1
       }
 
       it{
         @rule.navs[2].controller_items[0].controller_name.should == :musics
-      }
-
-      it{
-        @rule.navs[2].controller_items[1].controller_name.should == :pop_musics
-      }
-
-      it{
-        @rule.navs[2].controller_items[2].controller_name.should == :rock_musics
-      }
-
-      it{
-        @rule.navs[2].controller_items[3].controller_name.should == :punk_musics 
       }
 
       it{
@@ -124,14 +118,6 @@ describe "读取配置相关" do
       }
 
       it{
-        @pop_controller_items[1].controller_name.should == :rock_musics
-      }
-
-      it{
-        @pop_controller_items[2].controller_name.should == :punk_musics 
-      }
-
-      it{
         @rule.navs[2].subnavs[0].subnavs.length.should == 1
       }
 
@@ -144,11 +130,7 @@ describe "读取配置相关" do
       }
 
       it{
-        @rock_nav.controller_items[1].controller_name.should == :punk_musics
-      }
-
-      it{
-        @rock_nav.subnavs.length.should == 1  
+        @rock_nav.subnavs.length.should == 1
       }
 
       it{
@@ -168,7 +150,7 @@ describe "读取配置相关" do
       }
 
       it{
-        @rule_1.title.should == :rule_1  
+        @rule_1.title.should == :rule_1
       }
 
       it{
@@ -195,7 +177,7 @@ describe "读取配置相关" do
       }
 
       it{
-        @nav.controller_items.length == 1  
+        @nav.controller_items.length == 1
       }
 
       it{
@@ -242,4 +224,56 @@ describe "读取配置相关" do
     }
 
   end
+
+
+  describe "被点亮 nav" do
+    before(:each){
+      @view = MOCK_VIEW
+      def @view.params
+        {
+          "controller" => "punk_musics",
+          "action"     => "index"
+        }
+      end
+      html_str = @view.simple_navbar(:multi_level_example)
+      @xml = Nokogiri::XML(html_str)
+    }
+
+    it{
+      @xml.css('.page-navbar > .navbar-inner li.musics.active .pop_musics.active .rock_musics.active .punk_musics.active a')[0].
+        content.should == '朋克'
+    }
+  end
+
+
+  describe "Breadcrumbs" do
+    before(:each){
+      @view = MOCK_VIEW
+      def @view.params
+        {
+          "controller" => "punk_musics",
+          "action"     => "index"
+        }
+      end
+
+    }
+
+    it{
+      xml = @view.simple_breadcrumbs(:multi_level_example)
+      doc = Nokogiri::XML(xml)
+      res = doc.css("ol.breadcrumb li").map{ |n| n.inner_html.strip}
+      expect(res).to eq(["<a href=\"/musics\">&#x97F3;&#x4E50;</a>", "<a href=\"/musics/pop\">&#x6D41;&#x884C;&#x97F3;&#x4E50;</a>", "<a href=\"/musics/pop/rock\">&#x6447;&#x6EDA;&#x97F3;&#x4E50;</a>", "&#x670B;&#x514B;"])
+    }
+
+    it{
+      xml = @view.simple_breadcrumbs(:multi_level_example) do |b|
+        b.add "a","/a"
+        b.add "ab","/a/b"
+      end
+      doc = Nokogiri::XML(xml)
+      res = doc.css("ol.breadcrumb li").map{ |n| n.inner_html.strip}
+      expect(res).to eq(["<a href=\"/musics\">&#x97F3;&#x4E50;</a>", "<a href=\"/musics/pop\">&#x6D41;&#x884C;&#x97F3;&#x4E50;</a>", "<a href=\"/musics/pop/rock\">&#x6447;&#x6EDA;&#x97F3;&#x4E50;</a>", "<a href=\"/musics/pop/rock/punk\">&#x670B;&#x514B;</a>", "<a href=\"/a\">a</a>", "ab"])
+    }
+  end
+
 end

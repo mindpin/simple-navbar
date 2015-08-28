@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 module SimpleNavbar
-  module Helpers
+  module SimpleNavbarHelpers
     def simple_navbar(rule, *args)
       navbar = SimplePageCompoents::NavbarRender.new(self, *args)
 
@@ -24,7 +24,7 @@ module SimpleNavbar
         _xxx_r(item, subnav)
       end
     end
-    
+
     def _convert(nav)
       name = nav.options.name
       url  = nav.options.url

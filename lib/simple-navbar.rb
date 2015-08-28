@@ -3,7 +3,8 @@ require 'simple-page-compoents'
 require 'simple_navbar/config'
 require 'simple_navbar/controller_item'
 require 'simple_navbar/current_context'
-require 'simple_navbar/helpers'
+require 'simple_navbar/simple_navbar_helpers'
+require 'simple_navbar/simple_breadcrumbs_helper'
 require 'simple_navbar/nav_options'
 require 'simple_navbar/nav'
 require 'simple_navbar/rule'
@@ -22,7 +23,8 @@ if defined?(Rails)
     class Railtie < Rails::Railtie
 
       initializer 'SimpleNavbar.helper' do |app|
-        ActionView::Base.send :include, SimpleNavbar::Helpers
+        ActionView::Base.send :include, SimpleNavbar::SimpleNavbarHelpers
+        ActionView::Base.send :include, SimpleNavbar::SimpleBreadcrumbsHelpers
       end
 
       config.to_prepare do

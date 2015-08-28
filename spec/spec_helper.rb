@@ -8,7 +8,8 @@ require 'haml'
 require 'simple-navbar'
 require 'nokogiri'
 
-ActionView::Base.send(:include, SimpleNavbar::Helpers)
+ActionView::Base.send(:include, SimpleNavbar::SimpleNavbarHelpers)
+ActionView::Base.send(:include, SimpleNavbar::SimpleBreadcrumbsHelpers)
 view = ActionView::Base.new
 class << view
   include Haml::Helpers
@@ -24,6 +25,5 @@ end
 MOCK_VIEW = view
 
 # i18n
-I18n.locale = "zh-CN"
-
 I18n.load_path += [File.expand_path('../locales/zh-CN.yml',__FILE__)]
+I18n.locale = "zh-CN"
