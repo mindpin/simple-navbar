@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-SSimpleNavbar::Base.config do
+SimpleNavbar::Base.config do
   # rule :simple do
   #   nav :index, :name => '首页', :url => '/' do
   #     # 当 controler 是 index_controller, action 是 index
@@ -42,19 +42,19 @@ SSimpleNavbar::Base.config do
   #     controller :musics
   #     controller :pop_musics
   #     controller :rock_musics
-  #     controller :punk_musics 
+  #     controller :punk_musics
 
   #     nav :pop_musics, :name => '流行音乐', :url => '/musics/pop' do
   #       controller :pop_musics
   #       controller :rock_musics
-  #       controller :punk_musics 
+  #       controller :punk_musics
   #       # nav 支持任意层级的嵌套
   #       nav :rock_musics, :name => '摇滚音乐', :url => '/musics/pop/rock' do
   #         controller :rock_musics
-  #         controller :punk_musics 
+  #         controller :punk_musics
 
   #         nav :punk_musics, :name => '朋克', :url => '/musics/pop/rock/punk' do
-  #           controller :punk_musics 
+  #           controller :punk_musics
   #         end
   #       end
 
@@ -89,4 +89,3 @@ SSimpleNavbar::Base.config do
   # end
 
 end
-
