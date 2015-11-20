@@ -12,7 +12,7 @@ rails 导航插件
 Gemfile:  
 ```bash
 gem 'simple-navbar', :github => 'mindpin/simple-navbar',
-                     :tag => "0.0.3"
+                     :tag => "0.0.4"
 ```
 
 ## 配置
@@ -39,6 +39,13 @@ rails g simple_navbar_config config
 = simple_breadcrumbs(:simple) do |b|
   - b.add "a","/a"
   - b.add "ab","/a/b"
+```
+
+### simple_navtabs(rule_name)
+可以生成标签页导航
+```haml
+ # haml
+ = simple_navtabs(:simple)
 ```
 
 ## i18n support

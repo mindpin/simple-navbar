@@ -82,4 +82,18 @@ SimpleNavbar::Base.config do
     end
   end
 
+  rule :simple_navtabs_1 do
+    nav :books, :name => '书籍', :url => '/books' do
+      controller :books
+    end
+
+    nav :movies, :name => '电影', :url => '/movies' do
+      controller :movies
+    end
+
+    nav :musics, :name => '音乐', :url => '/musics' do
+      controller :musics
+    end
+  end
+
 end

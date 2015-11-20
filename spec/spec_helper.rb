@@ -10,6 +10,7 @@ require 'nokogiri'
 
 ActionView::Base.send(:include, SimpleNavbar::SimpleNavbarHelpers)
 ActionView::Base.send(:include, SimpleNavbar::SimpleBreadcrumbsHelpers)
+ActionView::Base.send(:include, SimpleNavbar::SimpleNavtabsHelpers)
 view = ActionView::Base.new
 class << view
   include Haml::Helpers
