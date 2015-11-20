@@ -5,11 +5,14 @@ require 'simple_navbar/controller_item'
 require 'simple_navbar/current_context'
 require 'simple_navbar/simple_navbar_helpers'
 require 'simple_navbar/simple_breadcrumbs_helper'
+require 'simple_navbar/simple_navtabs_helpers'
 require 'simple_navbar/nav_options'
 require 'simple_navbar/nav'
 require 'simple_navbar/rule'
 require 'simple_navbar/error'
 require 'simple_navbar/render/nav_item'
+require 'simple_navbar/render/navtabs'
+require 'simple_navbar/render/navtabs_item'
 
 module SimpleNavbar
   class Base
@@ -25,6 +28,7 @@ if defined?(Rails)
       initializer 'SimpleNavbar.helper' do |app|
         ActionView::Base.send :include, SimpleNavbar::SimpleNavbarHelpers
         ActionView::Base.send :include, SimpleNavbar::SimpleBreadcrumbsHelpers
+        ActionView::Base.send :include, SimpleNavbar::SimpleNavtabsHelpers
       end
 
       config.to_prepare do
