@@ -8,9 +8,11 @@ require 'haml'
 require 'simple-navbar'
 require 'nokogiri'
 
-ActionView::Base.send(:include, SimpleNavbar::SimpleNavbarHelpers)
-ActionView::Base.send(:include, SimpleNavbar::SimpleBreadcrumbsHelpers)
-ActionView::Base.send(:include, SimpleNavbar::SimpleNavtabsHelpers)
+ActionView::Base.send :include, SimpleNavbar::SimpleNavbarHelpers
+ActionView::Base.send :include, SimpleNavbar::SimpleBreadcrumbsHelpers
+ActionView::Base.send :include, SimpleNavbar::SimpleNavtabsHelpers
+ActionView::Base.send :include, SimpleNavbar::QuickFilterBarHelpers
+
 view = ActionView::Base.new
 class << view
   include Haml::Helpers
@@ -23,6 +25,7 @@ def view.params
     "action"     => "index"
   }
 end
+
 MOCK_VIEW = view
 
 # i18n
