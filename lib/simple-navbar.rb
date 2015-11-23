@@ -47,8 +47,9 @@ if defined?(Rails)
       end
 
       initializer 'SimpleNavbar.assets.precompile' do |app|
+        path = File.expand_path("../../", __FILE__)
         %w(stylesheets).each do |sub|
-          app.config.assets.paths << root.join('assets', sub).to_s
+          app.config.assets.paths << File.join(path, 'assets', sub).to_s
         end
       end
 
