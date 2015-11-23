@@ -1,0 +1,20 @@
+.page-navbar{
+  .navbar-inner{
+    margin-left: -30px;
+  }
+  .nav{
+    margin-left: 30px;
+  }
+
+  li > ul.nav{
+    display: none;
+  }
+
+  li.active > ul.nav{
+    display: block;
+  }
+
+  li.active > a{
+    background-color: #eeeeee;
+  }
+}

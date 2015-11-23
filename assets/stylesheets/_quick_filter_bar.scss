@@ -1,0 +1,35 @@
+.quick_filter_bar{
+  margin: 25px 0;
+  border: 1px solid #dddddd;
+  .quick_filter_bar_group{
+    border-bottom: 1px solid #dddddd;
+    &:last-child{
+      border-bottom: 0px;
+    }
+    padding: 20px;
+    .title{
+      display: inline-block;
+      width: 50px;
+
+      &:after{
+        content: ":"
+      }
+    }
+
+    ul{
+      display: inline;
+      li{
+        display: inline;
+        margin-right: 25px;
+
+        &.active{
+          background-color: #337ab7;
+          a{
+            color: #fff;
+          }
+
+        }
+      }
+    }
+  }
+}

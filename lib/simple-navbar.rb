@@ -13,6 +13,11 @@ require 'simple_navbar/error'
 require 'simple_navbar/render/nav_item'
 require 'simple_navbar/render/navtabs'
 require 'simple_navbar/render/navtabs_item'
+require 'simple_navbar/quick_filter_bar/builder'
+require 'simple_navbar/quick_filter_bar/group'
+require 'simple_navbar/quick_filter_bar/group_item'
+require 'simple_navbar/quick_filter_bar/url_query_string'
+require 'simple_navbar/quick_filter_bar_helpers'
 
 module SimpleNavbar
   class Base
@@ -29,6 +34,7 @@ if defined?(Rails)
         ActionView::Base.send :include, SimpleNavbar::SimpleNavbarHelpers
         ActionView::Base.send :include, SimpleNavbar::SimpleBreadcrumbsHelpers
         ActionView::Base.send :include, SimpleNavbar::SimpleNavtabsHelpers
+        ActionView::Base.send :include, SimpleNavbar::QuickFilterBarHelpers
       end
 
       config.to_prepare do
@@ -38,6 +44,12 @@ if defined?(Rails)
 
       generators do
         require File.expand_path("../../generators/simple_navbar_config_generator", __FILE__)
+      end
+
+      initializer 'SimpleNavbar.assets.precompile' do |app|
+        %w(stylesheets).each do |sub|
+          app.config.assets.paths << root.join('assets', sub).to_s
+        end
       end
 
     end

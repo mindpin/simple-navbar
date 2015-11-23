@@ -12,7 +12,7 @@ rails 导航插件
 Gemfile:  
 ```bash
 gem 'simple-navbar', :github => 'mindpin/simple-navbar',
-                     :tag => "0.0.4"
+                     :tag => "0.0.5"
 ```
 
 ## 配置
@@ -46,6 +46,19 @@ rails g simple_navbar_config config
 ```haml
  # haml
  = simple_navtabs(:simple)
+```
+
+### quick_filter_bar
+可以生成快速筛选条
+```haml
+# haml
+= quick_filter_bar do |builder|
+  - builder.group :result, :text => "结果" do |group|
+    - group.add "true",   :text => "正确"
+    - group.add "false", :text => "错误"
+  - builder.group :kind, :text => "类型" do |group|
+    - group.add "single_choice",   :text => "单选"
+    - group.add "mutli_choice", :text => "多选"
 ```
 
 ## i18n support
