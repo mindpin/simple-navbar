@@ -52,6 +52,12 @@ describe "quick_filter_bar" do
       a.content.should == "全部"
     }
 
+
+    it {
+      li = @xml.at_css(".quick_filter_bar .quick_filter_bar_group:last-child ul li:first-child")
+      li["class"].should == "active"
+    }
+
     it {
       a = @xml.at_css(".quick_filter_bar .quick_filter_bar_group:last-child ul li:last-child a")
       a["href"].should == "/list?kind=pop&lang=english"

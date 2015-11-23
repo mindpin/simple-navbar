@@ -6,7 +6,8 @@ module SimpleNavbar
         @group = group
         @builder = group.builder
 
-        @param_value = param_value.to_s
+        @param_value = param_value
+        @param_value = @param_value.to_s if @param_value != nil
         @text = text
       end
 
@@ -14,7 +15,7 @@ module SimpleNavbar
         query = @view.request.fullpath.split("?")[1] || ""
         hash = SimpleNavbar::QuickFilterBar::UrlQueryString.decode(query)
 
-        if @param_value == ""
+        if @param_value == nil
           hash.delete @group.param_name
         else
           hash[@group.param_name] = @param_value
