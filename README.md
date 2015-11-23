@@ -26,6 +26,11 @@ rails g simple_navbar_config config
 
 ### simple_navbar(rule_name)
 可以用该方法生成导航  
+
+```scss
+@import "simple_navbar";
+```
+
 ```haml
  # haml
  = simple_navbar(:simple)
@@ -50,6 +55,10 @@ rails g simple_navbar_config config
 
 ### quick_filter_bar
 可以生成快速筛选条
+```scss
+@import "quick_filter_bar";
+```
+
 ```haml
 # haml
 = quick_filter_bar do |builder|
