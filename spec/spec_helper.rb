@@ -8,10 +8,13 @@ require 'haml'
 require 'simple-navbar'
 require 'nokogiri'
 
-ActionView::Base.send :include, SimpleNavbar::SimpleNavbarHelpers
-ActionView::Base.send :include, SimpleNavbar::SimpleBreadcrumbsHelpers
-ActionView::Base.send :include, SimpleNavbar::SimpleNavtabsHelpers
-ActionView::Base.send :include, SimpleNavbar::QuickFilterBarHelpers
+RSpec.configure do |config|
+  config.expect_with :rspec do |c|
+    c.syntax = [:should, :expect]
+  end
+end
+
+SimpleNavbar::Base.include_helper
 
 view = ActionView::Base.new
 class << view

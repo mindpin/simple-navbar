@@ -47,7 +47,7 @@ SimpleNavbar::Base.config do
         nav :rock_musics, :name => '摇滚音乐', :url => '/musics/pop/rock' do
           controller :rock_musics
 
-          nav :punk_musics, :name => '朋克', :url => '/musics/pop/rock/punk' do
+          nav :punk_musics, :name => '朋克', :url => '/musics/pop/rock/punk', :html => {:target => "abc"} do
             controller :punk_musics
           end
         end
