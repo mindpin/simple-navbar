@@ -1,29 +1,7 @@
-# -*- encoding : utf-8 -*-
-require 'simple-page-compoents'
 require 'simple_navbar/config'
-require 'simple_navbar/controller_item'
-require 'simple_navbar/current_context'
-require 'simple_navbar/simple_navbar_helpers'
-require 'simple_navbar/simple_breadcrumbs_helper'
-require 'simple_navbar/simple_navtabs_helpers'
-require 'simple_navbar/nav_options'
-require 'simple_navbar/nav'
-require 'simple_navbar/rule'
-require 'simple_navbar/error'
-require 'simple_navbar/render/nav_item'
-require 'simple_navbar/render/navtabs'
-require 'simple_navbar/render/navtabs_item'
-require 'simple_navbar/quick_filter_bar/builder'
-require 'simple_navbar/quick_filter_bar/group'
-require 'simple_navbar/quick_filter_bar/group_item'
-require 'simple_navbar/quick_filter_bar/url_query_string'
-require 'simple_navbar/quick_filter_bar_helpers'
-
-module SimpleNavbar
-  class Base
-    extend SimpleNavbar::Config
-  end
-end
+require 'simple_navbar/render'
+require 'simple_navbar/helpers'
+require 'simple_navbar/base'
 
 if defined?(Rails)
 
@@ -31,10 +9,7 @@ if defined?(Rails)
     class Railtie < Rails::Railtie
 
       initializer 'SimpleNavbar.helper' do |app|
-        ActionView::Base.send :include, SimpleNavbar::SimpleNavbarHelpers
-        ActionView::Base.send :include, SimpleNavbar::SimpleBreadcrumbsHelpers
-        ActionView::Base.send :include, SimpleNavbar::SimpleNavtabsHelpers
-        ActionView::Base.send :include, SimpleNavbar::QuickFilterBarHelpers
+        SimpleNavbar::Base.include_helper
       end
 
       config.to_prepare do

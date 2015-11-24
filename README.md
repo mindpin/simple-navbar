@@ -12,7 +12,7 @@ rails 导航插件
 Gemfile:  
 ```bash
 gem 'simple-navbar', :github => 'mindpin/simple-navbar',
-                     :tag => "0.0.5"
+                     :tag => "0.0.6"
 ```
 
 ## 配置
