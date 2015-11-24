@@ -1,7 +1,7 @@
 # coding: utf-8
 Gem::Specification.new do |s|
   s.name = 'simple-navbar'
-  s.version = '0.0.5'
+  s.version = '0.0.6'
   s.platform = Gem::Platform::RUBY
   s.date = '2013-03-08'
   s.summary = 'simple-navbar for rails app'
@@ -13,5 +13,4 @@ Gem::Specification.new do |s|
 
   s.files = Dir.glob("lib/**/*") + %w(README.md)
   s.require_paths = ['lib']
-  s.add_dependency 'simple-page-compoents'
 end

@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-
 describe "读取配置相关" do
   describe "#simple_navbar error" do
     before(:each){
@@ -17,25 +16,25 @@ describe "读取配置相关" do
     it {
       expect {
         @view.simple_navbar(:admin)
-      }.to raise_error(SimpleNavbar::UnconfigurationError)
+      }.to raise_error(SimpleNavbar::Config::UnconfigurationError)
     }
 
     it {
       require 'config/simple_navbar_config'
       expect {
         @view.simple_navbar(:a)
-      }.to raise_error(SimpleNavbar::UndefinedRuleError)
+      }.to raise_error(SimpleNavbar::Config::UndefinedRuleError)
     }
   end
 
-  describe "SimpleNavbar::Rule" do
+  describe "解析配置文件" do
     before(:all) {
       require 'config/simple_navbar_config'
     }
 
     describe 'simple' do
       before(:all){
-        @rule = SimpleNavbar::Rule.get(:simple)
+        @rule = SimpleNavbar::Config::Rule.get(:simple)
       }
 
       it{
@@ -84,7 +83,7 @@ describe "读取配置相关" do
 
     describe 'multi_level_example' do
       before(:all){
-        @rule = SimpleNavbar::Rule.get(:multi_level_example)
+        @rule = SimpleNavbar::Config::Rule.get(:multi_level_example)
         @rock_nav = @rule.navs[2].subnavs[0].subnavs[0]
         @pop_controller_items = @rule.navs[2].subnavs[0].controller_items
       }
@@ -145,8 +144,8 @@ describe "读取配置相关" do
 
     describe 'mutil_rule' do
       before(:all){
-        @rule_1 = SimpleNavbar::Rule.get(:rule_1)
-        @rule_2 = SimpleNavbar::Rule.get(:rule_2)
+        @rule_1 = SimpleNavbar::Config::Rule.get(:rule_1)
+        @rule_2 = SimpleNavbar::Config::Rule.get(:rule_2)
       }
 
       it{
@@ -168,7 +167,7 @@ describe "读取配置相关" do
 
     describe 'admin' do
       before(:all){
-        @rule_admin = SimpleNavbar::Rule.get(:admin)
+        @rule_admin = SimpleNavbar::Config::Rule.get(:admin)
         @nav = @rule_admin.navs[0]
       }
 
@@ -187,135 +186,4 @@ describe "读取配置相关" do
 
   end
 
-  describe '#simple_navbar' do
-    before(:all) {
-      html_str = MOCK_VIEW.simple_navbar(:multi_level_example)
-      @xml = Nokogiri::XML(html_str)
-    }
-
-    it {
-      @xml.at_css('.page-navbar > .navbar-inner > ul.nav > li.active > a').
-        content.should == '首页'
-    }
-
-    it {
-      @xml.css('.page-navbar > .navbar-inner > ul.nav > li > a')[1].
-        content.should == '电影'
-    }
-
-    it {
-      @xml.css('.page-navbar > .navbar-inner > ul.nav > li > a')[2].
-        content.should == '音乐'
-    }
-
-    it {
-      @xml.css('.page-navbar > .navbar-inner > ul.nav > li > ul.nav > li > a')[0].
-        content.should == '流行音乐'
-    }
-
-    it {
-      @xml.css('.page-navbar > .navbar-inner > ul.nav > li > ul.nav > li > ul.nav > li > a')[0].
-        content.should == '摇滚音乐'
-    }
-
-    it {
-      @xml.css('.page-navbar > .navbar-inner > ul.nav > li > ul.nav > li > ul.nav > li > ul.nav > li > a')[0].
-        content.should == '朋克'
-    }
-
-  end
-
-
-  describe "被点亮 nav" do
-    before(:each){
-      @view = MOCK_VIEW
-      def @view.params
-        {
-          "controller" => "punk_musics",
-          "action"     => "index"
-        }
-      end
-      html_str = @view.simple_navbar(:multi_level_example)
-      @xml = Nokogiri::XML(html_str)
-    }
-
-    it{
-      @xml.css('.page-navbar > .navbar-inner li.musics.active .pop_musics.active .rock_musics.active .punk_musics.active a')[0].
-        content.should == '朋克'
-    }
-  end
-
-
-  describe "Breadcrumbs" do
-    before(:each){
-      @view = MOCK_VIEW
-      def @view.params
-        {
-          "controller" => "punk_musics",
-          "action"     => "index"
-        }
-      end
-
-    }
-
-    it{
-      xml = @view.simple_breadcrumbs(:multi_level_example)
-      doc = Nokogiri::XML(xml)
-      res = doc.css("ol.breadcrumb li").map{ |n| n.inner_html.strip}
-      expect(res).to eq(["<a href=\"/musics\">&#x97F3;&#x4E50;</a>", "<a href=\"/musics/pop\">&#x6D41;&#x884C;&#x97F3;&#x4E50;</a>", "<a href=\"/musics/pop/rock\">&#x6447;&#x6EDA;&#x97F3;&#x4E50;</a>", "&#x670B;&#x514B;"])
-    }
-
-    it{
-      xml = @view.simple_breadcrumbs(:multi_level_example) do |b|
-        b.add "a","/a"
-        b.add "ab","/a/b"
-      end
-      doc = Nokogiri::XML(xml)
-      res = doc.css("ol.breadcrumb li").map{ |n| n.inner_html.strip}
-      expect(res).to eq(["<a href=\"/musics\">&#x97F3;&#x4E50;</a>", "<a href=\"/musics/pop\">&#x6D41;&#x884C;&#x97F3;&#x4E50;</a>", "<a href=\"/musics/pop/rock\">&#x6447;&#x6EDA;&#x97F3;&#x4E50;</a>", "<a href=\"/musics/pop/rock/punk\">&#x670B;&#x514B;</a>", "<a href=\"/a\">a</a>", "ab"])
-    }
-  end
-
-
-  describe "simple_navtabs" do
-    before(:all) {
-      html_str = MOCK_VIEW.simple_navtabs(:simple_navtabs_1)
-      @xml = Nokogiri::XML(html_str)
-    }
-
-    it {
-      @xml.css('ul.nav.nav-tabs > li > a')[0].
-        content.should == '书籍'
-    }
-
-    it {
-      @xml.css('ul.nav.nav-tabs > li > a')[1].
-        content.should == '电影'
-    }
-
-    it {
-      @xml.css('ul.nav.nav-tabs > li > a')[2].
-        content.should == '音乐'
-    }
-
-    describe "被点亮" do
-      before(:each){
-        @view = MOCK_VIEW
-        def @view.params
-          {
-            "controller" => "musics",
-            "action"     => "index"
-          }
-        end
-        html_str = @view.simple_navtabs(:simple_navtabs_1)
-        @xml = Nokogiri::XML(html_str)
-      }
-
-      it{
-        @xml.css('ul.nav.nav-tabs > li.active > a')[0].
-          content.should == '音乐'
-      }
-    end
-
-  end
 end
