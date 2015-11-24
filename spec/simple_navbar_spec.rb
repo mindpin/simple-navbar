@@ -45,6 +45,11 @@ describe "simple_navbar" do
         content.should == '朋克'
     }
 
+    it{
+      a = @xml.css('.page-navbar > .navbar-inner > ul.nav > li > ul.nav > li > ul.nav > li > ul.nav > li > a')[0]
+      a[:target].should == "abc"
+    }
+
     describe "被点亮 nav" do
       before(:all){
         @view = MOCK_VIEW

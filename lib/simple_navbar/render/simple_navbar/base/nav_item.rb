@@ -12,6 +12,7 @@ module SimpleNavbar
           def initialize(text, url, options = {})
             @option_class     = options[:class] || ''
             @controller_items = options[:controller_items]
+            @html = options[:html] || {}
 
             @parent = nil
             @view   = nil
@@ -64,7 +65,8 @@ module SimpleNavbar
 
           private
             def _render_a
-              @view.haml_tag :a, @text,:href => @url
+              @html[:href] = @url
+              @view.haml_tag :a, @text, @html
             end
 
             def _render_ul

@@ -37,7 +37,8 @@ module SimpleNavbar
           nav.options.name,
           nav.options.url,
           :class => nav.title,
-          :controller_items => nav.controller_items
+          :controller_items => nav.controller_items,
+          :html  => nav.options.html
         )
 
         navbar_or_item.add_item_obj item
