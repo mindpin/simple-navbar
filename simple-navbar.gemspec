@@ -1,7 +1,7 @@
 # coding: utf-8
 Gem::Specification.new do |s|
   s.name = 'simple-navbar'
-  s.version = '0.0.6'
+  s.version = '0.0.6p1'
   s.platform = Gem::Platform::RUBY
   s.date = '2013-03-08'
   s.summary = 'simple-navbar for rails app'

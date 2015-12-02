@@ -7,7 +7,10 @@ module SimpleNavbar
         end
 
         def self.decode(query)
-          query.gsub("?","").split("&").map{|str|str.split("=")}.each{|arr|arr[1] = URI.decode arr[1]}.to_h
+          query.gsub("?","").split("&").map{|str|str.split("=")}.each{|arr|
+            value = arr[1] || ""
+            arr[1] = URI.decode value
+          }.to_h
         end
       end
     end
