@@ -4,7 +4,8 @@ module SimpleNavbar
       class Group
         attr_reader :builder, :param_name, :items
 
-        def initialize(view, builder, param_name, text:)
+        def initialize(view, builder, param_name, options)
+          text = options[:text]
           @view    = view
           @builder = builder
 
@@ -16,7 +17,8 @@ module SimpleNavbar
           @items << ::SimpleNavbar::Render::QuickFilterBar::GroupItem.new(@view, self, nil, text: "全部")
         end
 
-        def add(param_value, text:)
+        def add(param_value, options)
+          text = options[:text]
           @items << ::SimpleNavbar::Render::QuickFilterBar::GroupItem.new(@view, self, param_value, text: text)
         end
 

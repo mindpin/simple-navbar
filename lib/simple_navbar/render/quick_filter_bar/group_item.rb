@@ -2,7 +2,8 @@ module SimpleNavbar
   module Render
     module QuickFilterBar
       class GroupItem
-        def initialize(view, group, param_value, text:)
+        def initialize(view, group, param_value, options)
+          text = options[:text]
           @view  = view
           @group = group
           @builder = group.builder

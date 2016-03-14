@@ -9,7 +9,8 @@ module SimpleNavbar
           @groups = []
         end
 
-        def group(param_name, text:, &block)
+        def group(param_name, options, &block)
+          text = options[:text]
           group = ::SimpleNavbar::Render::QuickFilterBar::Group.new(@view, self, param_name, text: text)
           block.call(group)
           @groups << group
